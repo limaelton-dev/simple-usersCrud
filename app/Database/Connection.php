@@ -1,15 +1,20 @@
 <?php
 
-namespace app\database;
+declare(strict_types=1);
+
+namespace app\Database;
 
 use PDO;
-use PDOException;
 
 class Connection 
 {
     private static $pdoInstance = null;
 
-    public static function getConnection()
+     /**
+     *
+     * @return PDO retorna a instância da conexão com a base
+     */
+    public static function getConnection() :PDO
     {
         if(empty(self::$pdoInstance)) {
             self::$pdoInstance = new PDO(
