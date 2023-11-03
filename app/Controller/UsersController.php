@@ -50,4 +50,11 @@ class UsersController
     {
         return $this->usersModel->all();
     }
+
+    public function find()
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $usersList = $this->usersModel->find($id);
+        require_once __DIR__ . '/../../views/index.php';
+    }
 }

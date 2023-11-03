@@ -23,7 +23,7 @@ if(array_key_exists($uri, $routes) && array_key_exists($httpMethod, $routes[$uri
 
     list($controllerName, $methodName) = explode('@', $routes[$uri][$httpMethod]);
 
-    $controllerNamespace = 'app\\Controller\\'.$controllerName;
+    $controllerNamespace = 'app\\Controller\\' . $controllerName;
 
     if(class_exists($controllerNamespace)) {
         $controllerInstance = new $controllerNamespace();

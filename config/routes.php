@@ -12,5 +12,8 @@ return [
     '/create' => [
         'GET' => 'UsersController@create',
         'POST' => 'UsersController@store',
+    ],
+    '/find' => [
+        'POST' => 'UsersController@find',
     ]
 ];
