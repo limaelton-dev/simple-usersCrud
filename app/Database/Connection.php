@@ -14,7 +14,7 @@ class Connection
      *
      * @return PDO retorna a instância da conexão com a base
      */
-    public static function getConnection() :PDO
+    public static function getConnection(): PDO
     {
         if(empty(self::$pdoInstance)) {
             self::$pdoInstance = new PDO(
