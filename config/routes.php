@@ -9,4 +9,8 @@ return [
         'PUT' => 'UsersController@update',   // Rota para atualizar usuário (método "update")
         'DELETE' => 'UsersController@delete', // Rota para excluir usuário (método "delete")
     ],
+    '/create' => [
+        'GET' => 'UsersController@create',
+        'POST' => 'UsersController@store',
+    ]
 ];

@@ -1,41 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar usuário</title>
+    <title>Document</title>
 </head>
-
 <body>
-    <main>
+    <!-- <?php print_r($usersList) ?> -->
 
-        <form action="/public/" method="post">
-            <h2>Registrar novo usuário</h3>
-                <div>
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" required value="Lima"
-                        placeholder="Informe o nome do usuário"/>
-                </div>
-                <div>
-                    <label for="email">E-mail</label>
-                    <input type="email" name="email" required value="lima@lima.com"
-                        placeholder="Informe o email"/>
-                </div>
-                <div>
-                    <label for="setor">Setor</label>
-                    <select name="setor" required placeholder="Informe o setor do usuário">
-                        <option value="0">Informe o setor do usuário</option>
-                        <option selected value="1">Função 1</option>
-                        <option value="2">Função 2</option>
-                    </select>
-                </div>
-                <input type="submit" value="Enviar" />
-        </form>
+    <?php foreach ($usersList as $user): ?>
+        <li>
+            <div>
+                <p>User: <?= $user['name']; ?></p>
+                <p>E-mail: <?= $user['email']; ?></p>
+                <p>ID: <?= $user['id']; ?></p>
+            </div>
+        </li>
+    <?php endforeach; ?>
 
-    </main>
-
+    <a style="margin-bottom: 200px;" href="/create">Criar Usuário</a>
 </body>
-
 </html>

@@ -11,7 +11,10 @@ $uri = str_replace("/public", "", $uri);
 $uri = '/' . ltrim($uri, '/');
 
 
+// var_dump($routes[$uri][$httpMethod]);die;
 // var_dump($uri);die;
+// var_dump($httpMethod);die;
+// var_dump($httpMethod);die;
 // var_dump(array_key_exists($uri, $routes));die;
 // var_dump(array_key_exists($httpMethod, $routes[$uri]));die;
 // var_dump($routes[$uri][$httpMethod]);die;

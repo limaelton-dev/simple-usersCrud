@@ -18,25 +18,36 @@ class UsersController
 
     public function index(): void
     {
+        $usersList = $this->all();
         require_once __DIR__ . '/../../views/index.php';
     }
 
-    public function create(): void
+    public function create()
+    {
+        require_once __DIR__ . '/../../views/createUser.php';
+    }
+
+    public function store(): void
     {
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
         if($fields['name' === false] || $fields['email' === false]) {
-            header('Location:  /public/index.php?sucesso=0');
+            header('Location:  /');
             return;
         }
 
         $success = $this->usersModel->add($fields);
         if ($success === false) {
-            header('Location:  /public/?sucesso=0');
+            header('Location:  /');
             return;
         }
 
-        header('Location:  /public/?sucesso=1');
+        header('Location:  /');
+    }
+
+    private function all()
+    {
+        return $this->usersModel->all();
     }
 }
