@@ -15,29 +15,35 @@ class UsersController
     {
         $this->usersModel = new Users(Connection::getConnection());
     }
-
-    public function index(): void
+    
+    private function all()
     {
-        $usersList = $this->all();
-        require_once __DIR__ . '/../../views/index.php';
+        return $this->usersModel->all();
     }
 
+    public function index(int|bool $id = false)
+    {
+        $usersList = $id !== false ? $this->usersModel->find($id) : $this->all();
+
+        require_once __DIR__ . '/../../views/index.php';
+        return;
+    }
+    
     public function create()
     {
-        require_once __DIR__ . '/../../views/create_user.php';
+        require_once __DIR__ . '/../../views/user_create.php';
     }
 
-    public function store(): void
+    public function store()
     {
+        //criar validação e flash message
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-        if($fields['name' === false] || $fields['email' === false]) {
-            $this->index();
-            return;
-        }
+        $success = $id ? $this->usersModel->update($id, $fields) : $this->usersModel->add($fields)
 
-        $success = $this->usersModel->add($fields);
+        ;
         if ($success === false) {
             $this->index();
             return;
@@ -46,20 +52,17 @@ class UsersController
         $this->index();
     }
 
-    private function all()
+    public function edit(int $id)
     {
-        return $this->usersModel->all();
-    }
-
-    public function find()
-    {
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        $usersList = $this->usersModel->find($id);
-        require_once __DIR__ . '/../../views/index.php';
+        //criar validação e flash message
+        $user = $this->usersModel->find($id)[0];
+        require_once __DIR__ . '/../../views/user_edit.php';
+        return;
     }
 
     public function destroy() 
     {
+        //criar validação e flash message
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $this->usersModel->remove($id);
         $this->index();

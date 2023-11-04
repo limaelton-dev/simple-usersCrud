@@ -1,15 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 $routes = require_once __DIR__. '/../config/routes.php';
 
+$param = false;
+
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 
 $uri = $_SERVER['REQUEST_URI'];
-$uri = str_replace("/public", "", $uri);
 $uri = '/' . ltrim($uri, '/');
 
+
+if (strpos($uri, '?')) {
+
+    list($uri, $param) = explode('?', $uri);
+    $position = strpos($param, '=');
+
+    if($position !== false) {
+        $param = intval(substr($param, $position+1));
+    }
+}
 
 // var_dump($routes[$uri][$httpMethod]);die;
 // var_dump($uri);die;
@@ -29,7 +42,12 @@ if(array_key_exists($uri, $routes) && array_key_exists($httpMethod, $routes[$uri
         $controllerInstance = new $controllerNamespace();
 
         if(method_exists($controllerInstance, $methodName)) {
-            $controllerInstance->$methodName();
+
+            if($param) {
+                $controllerInstance->$methodName($param);
+            } else {
+                $controllerInstance->$methodName();
+            }
         }
     }
 

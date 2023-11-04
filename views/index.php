@@ -12,24 +12,38 @@
 
     <div class="container">
         <div class="row" style="margin-top: 20px;">
-                <div class="col-md-6">
-                    <div class="d-flex align-items-center justify-content-start">
-                        <form action="/find" method="post">
-                            <div class="row align-items-end">
-                                <div class="col-md-8">
-                                    <label for="id" class="form">ID do usuário</label>
-                                    <input class="form-control" name="id" type="text">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center justify-content-start">
+                            <form action="/user" method="get">
+                                <div class="row align-items-end">
+                                    <div class="col-md-8">
+                                        <label for="id" class="form">ID do usuário</label>
+                                        <input class="form-control" name="id" type="text">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-primary" type="submit">Buscar</button>
-                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row d-flex justify-content-end align-items-end">
+                            <div class="col-md-4 d-flex justify-content-end align-items-end">
+                                <a class="btn btn-secondary" href="/setor/create">Criar Setor</a>
                             </div>
-                        </form>
+                            <div class="col-md-4 d-flex justify-content-end align-items-end">
+                                <label for=""></label>
+                                <a class="btn btn-success" href="/user/create">Criar Usuário</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end align-items-end">
-                    <a class="btn btn-secondary" href="/create">Criar Usuário</a>
-                </div>
+            </div>
+
         </div>
     </div>
 
@@ -37,22 +51,31 @@
         <div class="row"  style="margin-top: 20px;">
             <div class="col-md-12">
                 <ul class="list-group">
-                    <?php if (is_array($usersList)): ?>
+                    <?php if (isset($usersList) && is_array($usersList)): ?>
                         <?php foreach ($usersList as $user): ?>
                             <li class="list-group-item">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
-                                    <div class="p-2">ID: <?= $user['id']; ?></div>
-                                    <div class="p-2">User: <?= $user['name']; ?></div>
-                                    <div class="p-2">E-mail: <?= $user['email']; ?></div>
+                                    <div class="p-2">
+                                        ID: <?= $user['id']; ?>
+                                    </div>
+                                    <div class="p-2">
+                                        User: <?= $user['name']; ?>
+                                    </div>
+                                    <div class="p-2">
+                                        E-mail: <?= $user['email']; ?>
+                                    </div>
+                                    <div class="p-2">
+                                        Setor: SETOR
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <form action="/user_edit" method="put">
+                                            <form action="/user/edit" method="get">
                                                 <input name="id" type="hidden" value="<?= $user['id']; ?>">
                                                 <input class="btn btn-dark" type="submit" value="Editar">
                                             </form>
                                         </div>
                                         <div class="col-md-6">
-                                            <form action="/user_delete" method="post">
+                                            <form action="/user/delete" method="post">
                                                 <input name="id" type="hidden" value="<?= $user['id']; ?>">
                                                 <input class="btn btn-danger" type="submit" value="Excluir">
                                             </form>
