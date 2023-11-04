@@ -10,9 +10,9 @@ $pdo = Connection::getConnection();
 
 
 // $model = new Setores($pdo);
-$model = new Users($pdo);
+// $model = new Users($pdo);
 
-$model->updateRelationSetores(1, '6,');
+// $model->updateRelationSetores(1, '6,');
 
 // $addSuccess = $model->add(['name' => 'Setor 2']);
 // if ($addSuccess) {
