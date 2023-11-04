@@ -3,57 +3,61 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use app\Database\Connection;
+use app\Model\Setores;
 use app\Model\Users;
 
 $pdo = Connection::getConnection();
 
 
-$usersModel = new Users($pdo);
+$model = new Setores($pdo);
+// $model = new Users($pdo);
 
-// $addSuccess = $usersModel->add(['name' => 'Novo Usuário', 'email' => 'novo@usuario.com']);
+// $addSuccess = $model->add(['name' => 'Setor 2']);
 // if ($addSuccess) {
 //     echo "Usuário $addSuccess adicionado com sucesso!";
 // } else {
 //     echo "Erro ao adicionar o usuário.";
 // }
 
-// $users = $usersModel->all();
+// $users = $model->all();
 // if (!empty($users)) {
 //     echo "Usuários encontrados" . "\n";
 //     foreach ($users as $user) {
-//         echo "ID: " . $user['id'] . ", Nome: " . $user['name'] . ", Email: " . $user['email'] . "\n";
+//         echo "ID: " . $user['id'] . ", Nome: " . $user['name'] . "\n";
 //     }
 // } else {
 //     echo "Nenhum usuário encontrado.";
 // }
 
 
-// $userId = 3; 
-// $userInfo = $usersModel->find($userId);
+// $userId = 4; 
+// $userInfo = $model->find($userId)[0];
 // if ($userInfo) {
 //     echo "Informações do usuário com ID $userId:"."\n";
-//     echo "ID: " . $userInfo['id'] . ", Nome: " . $userInfo['name'] . ", Email: " . $userInfo['email'];
+//     echo "ID: " . $userInfo['id'] . ", Nome: " . $userInfo['name'];
 // } else {
 //     echo "Nenhum usuário encontrado com o ID $userId.";
 // }
 
 
-// $userId = 3; 
-// $userInfo = $usersModel->remove(3);
-// if ($userInfo) {
+// $userId = 2; 
+// $userInfo = $model->remove($userId);
+// var_dump($userInfo);
+// if ($userInfo === 0) {
+//     echo "Nenhum usuário encontrado com o ID $userId.";
+// } elseif($userInfo > 0) {
 //     echo "informação $userInfo:"."\n";
 // } else {
-//     echo "Nenhum usuário encontrado com o ID $userId.";
+//     echo "algo de errado aconteceu";
 // }
 
 // $fields = [
-//     'name' => 'Elton',
-//     'email' => 'elton@elton.com'
+//     'name' => 'Setor Gerencia',
 // ];
 
-// $id = 4;
+// $id = 1;
 
-// $result = $usersModel->update($id, $fields);
+// $result = $model->update($id, $fields);
 
 // if ($result !== false) {
 //     if ($result > 0) {
