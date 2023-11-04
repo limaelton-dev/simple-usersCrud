@@ -15,5 +15,9 @@ return [
     ],
     '/find' => [
         'POST' => 'UsersController@find',
+    ],
+    '/user_delete' =>
+    [
+        'POST' => 'UsersController@destroy',
     ]
 ];

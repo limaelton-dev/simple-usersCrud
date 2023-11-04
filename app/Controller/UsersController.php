@@ -24,7 +24,7 @@ class UsersController
 
     public function create()
     {
-        require_once __DIR__ . '/../../views/createUser.php';
+        require_once __DIR__ . '/../../views/create_user.php';
     }
 
     public function store(): void
@@ -33,17 +33,17 @@ class UsersController
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
         if($fields['name' === false] || $fields['email' === false]) {
-            header('Location:  /');
+            $this->index();
             return;
         }
 
         $success = $this->usersModel->add($fields);
         if ($success === false) {
-            header('Location:  /');
+            $this->index();
             return;
         }
 
-        header('Location:  /');
+        $this->index();
     }
 
     private function all()
@@ -57,4 +57,11 @@ class UsersController
         $usersList = $this->usersModel->find($id);
         require_once __DIR__ . '/../../views/index.php';
     }
+
+    public function destroy() 
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $this->usersModel->remove($id);
+        $this->index();
+    }   
 }

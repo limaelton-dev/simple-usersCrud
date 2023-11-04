@@ -6,11 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar usuário</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
     <main>
-
+        <div class="container">
+            <div class="col-md-12">
+            </div>
+        </div>
         <form action="/create" method="post">
             <h2>Registrar novo usuário</h3>
                 <div>
