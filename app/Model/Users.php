@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\Model;
 
 use PDO;
+use PDOException;
 
 class Users 
 {
@@ -105,6 +106,25 @@ class Users
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    /**
+     * Ficam vinculados, apenas os setores informados na string
+     * 
+     * @param int informe o id do usuário
+     * @param string informe em uma string, os ids dos setores a serem vinculados
+     * Exemplo: ['3,4'] ou [3,] para apenas 1 setor
+     * @return bool
+     */
+    public function updateRelationSetores(int $user_id, string $setores_ids): bool
+    {
+            $sql = "CALL update_setores_user(:user_id, :setores_id)";
+            $stmt = $this->pdo->prepare($sql);
+
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':setores_id', $setores_ids, PDO::PARAM_STR);
+
+            return $stmt->execute();
     }
 }
 
