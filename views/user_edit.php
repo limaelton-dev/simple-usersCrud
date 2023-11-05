@@ -33,66 +33,28 @@
                                 placeholder="Informe o email"/>
                         </div>
                         
-                        <div class="col-md-12">
-                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                <?php if(isset($setores) && is_array($setores)) : ?>
-                                    <? foreach($setores as $setor) :?>
-
-                                        <input type="checkbox" 
-                                                class="btn-check" 
-                                                name="setor_<?= $setor['id']; ?>" 
-                                                id="setor_<?= $setor['id']; ?>" 
-                                                autocomplete="off">
-
-                                        <label class="btn btn-outline-primary" 
-                                                for="setor_<?= $setor['id']; ?>">
-                                                    <?php $setor['name']; ?>
-                                        </label>
-
-                                    <? endforeach; ?>
-                                <?php endif; ?>
-                            </div>
+                        <div class="col-md-12 border">
+                            <?php if(isset($setores) && is_array($setores)) : ?>
+                                <div class="form-check form-switch d-flex justify-content-between" style="width:100%">
+                                    <?php foreach($setores as $setor) :?>
+                                        <div>
+                                            <input class="form-check-input" 
+                                                    type="checkbox" 
+                                                    role="switch"
+                                                    id="setor_<?= $setor['id']; ?>"
+                                                    name="setor[<?= $setor['id']; ?>]"
+                                                    <?= in_array($setor['id'], $user['setores']) ? 'checked' : '' ;?> >
+                                            <label class="form-check-label" 
+                                                    for="setor_<?= $setor['id']; ?>">
+                                                        <?= $setor['name']; ?>
+                                            </label>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         
-                        <!-- <div class="col-md-12">
-                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
-
-                                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
-
-                                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="a" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="a">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="s" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="s">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="d" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="d">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="z" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="z">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="x" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="x">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="c" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="c">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="v" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="v">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="q" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="q">Checkbox 3</label>
-
-                                <input type="checkbox" class="btn-check" id="w" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="w">Checkbox 3</label>
-                            </div>
-                        </div> -->
+                        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
                         
                         <div class="col-md-12 mt-3 d-flex justify-content-end">
                             <input class="btn btn-success" type="submit" value="Enviar" />

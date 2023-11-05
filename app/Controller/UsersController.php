@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\Controller;
 
 use app\Controller\SetoresController;
-use app\Database\Connection;
 use app\Model\Users;
 
 class UsersController 
@@ -35,14 +34,13 @@ class UsersController
     public function create()
     {
         $setores = $this->setoresController->all();
-        // print_r($setores);die;
+
         require_once __DIR__ . '/../../views/user_create.php';
         return;
     }
 
     public function store()
     {
-        //criar validação e flash message
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -59,8 +57,9 @@ class UsersController
             }
         }
 
-        if($id){
-            $success = $this->usersModel->update($id, $fields);
+        if($id !== false){
+            $this->usersModel->update($id, $fields);
+            $this->usersModel->updateRelationSetores($id, $setores);
             
         } else {
             $setores = rtrim($setores, ',');
@@ -70,25 +69,21 @@ class UsersController
             $this->usersModel->addUserSetores($id, $setores);
         }
 
-        if ($success === false) {
-            $this->index();
-            return;
-        }
-
         $this->index();
     }
 
     public function edit(int $id)
     {
-        //criar validação e flash message
         $user = $this->usersModel->find($id)[0];
+        $user['setores'] = $user['setores'] ? explode(',', $user['setores']) : [];
+
+        $setores = $this->setoresController->all();
         require_once __DIR__ . '/../../views/user_edit.php';
         return;
     }
 
     public function destroy() 
     {
-        //criar validação e flash message
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $this->usersModel->remove($id);
         $this->index();

@@ -93,7 +93,19 @@ class Users extends Model
      */
     public function find(int $id): bool|array
     {
-        $sql = 'SELECT * FROM users WHERE id = :id';
+        $sql = '
+            SELECT 
+                users.*, 
+                GROUP_CONCAT(user_setores.setor_id) as setores
+            FROM 
+                users
+            LEFT JOIN 
+                user_setores ON users.id = user_setores.user_id
+            WHERE 
+                users.id = :id
+            GROUP BY 
+                users.id;
+        ';
         $stmt = $this->pdo->prepare($sql);
 
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
