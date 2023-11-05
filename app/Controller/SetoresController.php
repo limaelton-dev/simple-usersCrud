@@ -7,7 +7,7 @@ namespace app\Controller;
 use app\Database\Connection;
 use app\Model\Setores;
 
-class UsersController 
+class SetoresController 
 {
     private Setores $setoresModel;
 
@@ -16,7 +16,7 @@ class UsersController
         $this->setoresModel = new Setores(Connection::getConnection());
     }
     
-    private function all()
+    public function all()
     {
         return $this->setoresModel->all();
     }

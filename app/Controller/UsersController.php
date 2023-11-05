@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace app\Controller;
 
+use app\Controller\SetoresController;
 use app\Database\Connection;
 use app\Model\Users;
 
 class UsersController 
 {
     private Users $usersModel;
+    private SetoresController $setoresController;
 
     public function __construct()
     {
         $this->usersModel = new Users(Connection::getConnection());
+        $this->setoresController = new SetoresController();
     }
     
     private function all()
@@ -31,7 +34,10 @@ class UsersController
     
     public function create()
     {
+        $setores = $this->setoresController->all();
+        // print_r($setores);die;
         require_once __DIR__ . '/../../views/user_create.php';
+        return;
     }
 
     public function store()
