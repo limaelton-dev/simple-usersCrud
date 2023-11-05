@@ -15,7 +15,7 @@ class UsersController
 
     public function __construct()
     {
-        $this->usersModel = new Users(Connection::getConnection());
+        $this->usersModel = new Users();
         $this->setoresController = new SetoresController();
     }
     
@@ -47,9 +47,29 @@ class UsersController
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-        $success = $id ? $this->usersModel->update($id, $fields) : $this->usersModel->add($fields)
+        $setores = "";
+        if (isset($_POST['setor']) && is_array($_POST['setor'])) {
 
-        ;
+            foreach ($_POST['setor'] as $key => $value) {
+                $setores .= intval($key) . "," ;
+            }
+
+            if (count($_POST['setor']) > 1) {
+                $setores = rtrim($setores, ',');
+            }
+        }
+
+        if($id){
+            $success = $this->usersModel->update($id, $fields);
+            
+        } else {
+            $setores = rtrim($setores, ',');
+            $setores = explode(',', $setores);
+            
+            $id =  $this->usersModel->add($fields);
+            $this->usersModel->addUserSetores($id, $setores);
+        }
+
         if ($success === false) {
             $this->index();
             return;

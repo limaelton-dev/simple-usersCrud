@@ -6,13 +6,11 @@ use app\Database\Connection;
 use app\Model\Setores;
 use app\Model\Users;
 
-$pdo = Connection::getConnection();
 
+// $model = new Setores();
+// $model = new Users();
 
-// $model = new Setores($pdo);
-// $model = new Users($pdo);
-
-// $model->updateRelationSetores(1, '6,');
+// $model->updateRelationSetores(1, '1,6,5');
 
 // $addSuccess = $model->add(['name' => 'Setor 2']);
 // if ($addSuccess) {

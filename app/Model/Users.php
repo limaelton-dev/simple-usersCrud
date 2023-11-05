@@ -7,12 +7,8 @@ namespace app\Model;
 use PDO;
 use PDOException;
 
-class Users 
+class Users extends Model
 {
-    public function __construct(private PDO $pdo)
-    {
-    }
-
     /**
      * Cria um usuário na base
      * 
@@ -83,9 +79,7 @@ class Users
      */
     public function all(): array
     {
-        $usersList = $this->pdo
-            ->query('SELECT * FROM users;')
-            ->fetchAll();
+        $usersList = $this->pdo->query('SELECT * FROM users;')->fetchAll();
 
         return $usersList;
     }
@@ -106,6 +100,19 @@ class Users
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    public function addUserSetores(int $user_id, array $setores)
+    {
+        $sql = 'INSERT INTO user_setores (setor_id, user_id) VALUES (:setor_id, :user_id)';
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        foreach ($setores as $setor_id) {
+            $stmt->bindValue(':setor_id', $setor_id, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+
     }
 
     /**

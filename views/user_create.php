@@ -38,7 +38,7 @@
                                         
                                         <input type="checkbox" 
                                                 class="btn-check" 
-                                                name="setor_<?= $setor['id']; ?>" 
+                                                name="setor[<?= $setor['id']; ?>]; ?>" 
                                                 id="setor_<?= $setor['id']; ?>" 
                                                 autocomplete="off">
 

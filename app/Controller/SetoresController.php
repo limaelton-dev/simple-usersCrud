@@ -13,7 +13,7 @@ class SetoresController
 
     public function __construct()
     {
-        $this->setoresModel = new Setores(Connection::getConnection());
+        $this->setoresModel = new Setores();
     }
     
     public function all()
@@ -41,9 +41,8 @@ class SetoresController
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-        $success = $id ? $this->setoresModel->update($id, $fields) : $this->setoresModel->add($fields)
+        $success = $id ? $this->setoresModel->update($id, $fields) : $this->setoresModel->add($fields);
 
-        ;
         if ($success === false) {
             $this->index();
             return;

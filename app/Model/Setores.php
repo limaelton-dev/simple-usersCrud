@@ -6,12 +6,8 @@ namespace app\Model;
 
 use PDO;
 
-class Setores
+class Setores extends Model
 {
-    public function __construct(private PDO $pdo)
-    {
-    }
-
     /**
      * Cria um usuário na base
      * 
