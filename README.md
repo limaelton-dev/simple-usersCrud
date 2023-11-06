@@ -9,18 +9,18 @@ Este é um projeto de um aplicativo CRUD (Create, Read, Update, Delete) de usuá
 - PHP 8.2.9
 - MySQL
 - Usei o servidor embutido do PHP apontado para a pasta *public/*
-- Composer (para importar o autoload e utilizar a proteção CSRF)
+- Composer (para importar o autoload e utilizar a proteção CSRF com a PSR-4)
 - A estrutura do banco, é exatamente a mesma solicitada no TESTE
-- Não esqueça de executar as triggers e a procedure para o correto funcionamento
+
 - **Deixei anexado o arquivo SQL.md contendo os scripts usados para o DB**
 
 ## Configuração
-
-   - Não esqueça de desativar o modo Safe do MySQL;
-   - Caso seja necessário, inicie o composer, ou faça o seu dump;
+   - Não esqueça de executar as triggers e a procedure antes de iniciar o projeto para o correto funcionamento
+   - Não esqueça de desativar o modo Safe do MySQL caso necessário;
+   - Não é necessário iniciar o composer, mas caso tenha problemas inicie o composer, ou faça o seu dump;
    - Já deixei anexado no projeto o arquivo ``composer.json``;
    - Também deixei no projeto a pasta vendor;
-   - Deixei a configuração do banco diretamente no código por fins de facilidade em app/Database/Connection.php;
+   - Deixei a configuração do banco diretamente no código por fins de facilidade em ``app/Database/Connection.php``;
    - Para iniciar o projeto, você deve utilizar o comando ;
     ``php -S localhost:8000 -t public/``
 
