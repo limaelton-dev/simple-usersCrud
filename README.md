@@ -41,5 +41,9 @@ Este é um projeto de um aplicativo CRUD (Create, Read, Update, Delete) de usuá
 
     - A trigger *delete_setores_users* irá deletar todos os registros que contém vínculo com usuários da tabela *user_setores*, quando o setor for deletado da tabela *users*.
 
+## Commits
+
+    [É possível verificar meu histórico de commits no repositório publico em meu github acessando:](https://github.com/limaelton-dev/simple-usersCrud)
+
 
    
