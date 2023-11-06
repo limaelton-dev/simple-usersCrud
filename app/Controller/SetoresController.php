@@ -23,25 +23,17 @@ class SetoresController
 
     public function index(int|bool $id = false)
     {
-        $usersList = $id !== false ? $this->setoresModel->find($id) : $this->all();
+        $setoresList = $this->setoresModel->all();
 
-        require_once __DIR__ . '/../../views/index.php';
+        require_once __DIR__ . '/../../views/setores_list.php';
         return;
-    }
-    
-    public function create()
-    {
-        require_once __DIR__ . '/../../views/user_create.php';
     }
 
     public function store()
     {
-        //criar validação e flash message
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $fields['name'] = filter_input(INPUT_POST, 'name');
-        $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-        $success = $id ? $this->setoresModel->update($id, $fields) : $this->setoresModel->add($fields);
+        $success = $this->setoresModel->add($fields);
 
         if ($success === false) {
             $this->index();
@@ -61,7 +53,6 @@ class SetoresController
 
     public function destroy() 
     {
-        //criar validação e flash message
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $this->setoresModel->remove($id);
         $this->index();

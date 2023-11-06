@@ -8,7 +8,9 @@ use app\Model\Users;
 
 
 // $model = new Setores();
-// $model = new Users();
+$model = new Users();
+
+// var_dump($model->findUsersSetores([5,6]));
 
 // $model->updateRelationSetores(1, '1,6,5');
 

@@ -1,46 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD simples de usuários</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-    <!-- <?php print_r($usersList) ?> -->
-    
+<?php  
+    $title = 'Usuários';
+    require __DIR__ . '/templates/start-html.php'
+?>
 
+
+<body>
+
+    <?php 
+        require __DIR__ . '/templates/header.php'
+    ?>
+    <div class="d-flex justify-content-center align-items-center">
+        <h1>Usuários</h1>
+    </div>
     <div class="container">
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="d-flex align-items-center justify-content-start">
-                            <form action="/user" method="get">
+                            <form action="/filtrar" method="post">
                                 <div class="row align-items-end">
                                     <div class="col-md-8">
-                                        <label for="id" class="form">ID do usuário</label>
-                                        <input class="form-control" name="id" type="text">
+                                        <label class="form-label" class="form">Setor</label>
+                                        <select class="form-select" name="setores[]" multiple aria-label="Multiple select example">
+                                            <option value="0">Todos</option>
+                                            <?php foreach($setoresList as $setor): ?>
+                                                <option value="<?= $setor['id']; ?>"><?= $setor['name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                        <button class="btn btn-primary" type="submit">Filtrar</button>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="row d-flex justify-content-end align-items-end">
-                            <div class="col-md-4 d-flex justify-content-end align-items-end">
-                                <a class="btn btn-secondary" href="/setor/create">Criar Setor</a>
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-end align-items-end">
-                                <label for=""></label>
-                                <a class="btn btn-success" href="/user/create">Criar Usuário</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,7 +60,13 @@
                                         E-mail: <?= $user['email']; ?>
                                     </div>
                                     <div class="p-2">
-                                        Setor: SETOR
+                                        <ul>
+                                            <?php if(is_array($user['setores'] && !empty($user['setores']))) : ?>
+                                                <?php foreach($user['setores'] as $setor) : ?>
+                                                    <li>Setor(es): <?= $setor[''] ;?></li>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </ul>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -92,4 +91,7 @@
         </div>
     </div>
 </body>
-</html>
+
+<?php 
+    require __DIR__ . '/templates/end-html.php'
+?>

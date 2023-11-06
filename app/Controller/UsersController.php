@@ -23,9 +23,10 @@ class UsersController
         return $this->usersModel->all();
     }
 
-    public function index(int|bool $id = false)
+    public function index(array|bool $setores = false)
     {
-        $usersList = $id !== false ? $this->usersModel->find($id) : $this->all();
+        $setoresList = $this->setoresController->all();
+        $usersList = $setores === false ? $this->all() : $this->usersModel->find($setores);
 
         require_once __DIR__ . '/../../views/index.php';
         return;
@@ -44,31 +45,23 @@ class UsersController
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-
+    
         $setores = "";
         if (isset($_POST['setor']) && is_array($_POST['setor'])) {
-
-            foreach ($_POST['setor'] as $key => $value) {
-                $setores .= intval($key) . "," ;
-            }
-
-            if (count($_POST['setor']) > 1) {
-                $setores = rtrim($setores, ',');
-            }
+            $setores = implode(',', array_keys($_POST['setor']));
         }
-
-        if($id !== false){
+    
+        $setores = rtrim($setores, ',');
+    
+        if ($id !== false && $id !== NULL) {
             $this->usersModel->update($id, $fields);
             $this->usersModel->updateRelationSetores($id, $setores);
-            
         } else {
-            $setores = rtrim($setores, ',');
             $setores = explode(',', $setores);
-            
-            $id =  $this->usersModel->add($fields);
+            $id = $this->usersModel->add($fields);
             $this->usersModel->addUserSetores($id, $setores);
         }
-
+    
         $this->index();
     }
 
@@ -80,6 +73,20 @@ class UsersController
         $setores = $this->setoresController->all();
         require_once __DIR__ . '/../../views/user_edit.php';
         return;
+    }
+
+    public function findWithFilter()
+    {
+        $setores = isset($_POST['setores']) && is_array($_POST['setores']) ? $_POST['setores'] : [];
+    
+        if (in_array(0, $setores)) {
+            $this->index();
+            return;
+        }
+    
+        $users = $this->usersModel->findUsersSetores($setores);
+    
+        $this->index(!empty($users) ? $users : null);
     }
 
     public function destroy() 

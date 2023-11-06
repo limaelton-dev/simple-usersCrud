@@ -91,8 +91,9 @@ class Users extends Model
      *
      * @return bool|array Retorna array com as informaçoes ou false caso não encontre resultados.
      */
-    public function find(int $id): bool|array
+    public function find(int|array $ids): bool|array
     {
+        $completeQuery = is_array($ids) ? 'users.id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')' : 'users.id = :id';
         $sql = '
             SELECT 
                 users.*, 
@@ -102,13 +103,18 @@ class Users extends Model
             LEFT JOIN 
                 user_setores ON users.id = user_setores.user_id
             WHERE 
-                users.id = :id
+                ' . $completeQuery . '
             GROUP BY 
                 users.id;
         ';
         $stmt = $this->pdo->prepare($sql);
+        
+        if (is_array($ids)) {
+            $stmt->execute($ids);
+            return $stmt->fetchAll();
+        }
 
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $ids, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll();
@@ -144,6 +150,29 @@ class Users extends Model
             $stmt->bindValue(':setores_id', $setores_ids, PDO::PARAM_STR);
 
             return $stmt->execute();
+    }
+
+    public function findUsersSetores(array $setores)
+    {
+        $sql = '
+            SELECT 
+                user_id 
+            FROM 
+                user_setores 
+            WHERE 
+                setor_id IN (' . implode(',', array_fill(0, count($setores), '?')) . ')
+            GROUP BY
+                user_id
+        ';
+
+        $stmt = $this->pdo->prepare($sql);
+        foreach ($setores as $key => $setor_id) {
+            $stmt->bindValue($key + 1, $setor_id, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }
 

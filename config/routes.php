@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 return [
         '/' => [
-            'GET' => 'UsersController@index'
+            'GET' => 'UsersController@index',
+        ],
+        '/filtrar' => [
+            'POST' => 'UsersController@findWithFilter',
         ],
         '/user' => [
-            'GET' => 'UsersController@index'
+            'GET' => 'UsersController@index',
         ],
         '/user/create' => [
             'GET' => 'UsersController@create',
-            'POST' =>  'UsersController@store'
+            'POST' =>  'UsersController@store',
         ],
         '/user/edit' => [
             'GET' => 'UsersController@edit',
@@ -19,5 +22,12 @@ return [
         ],
         '/user/delete' => [
             'POST' => 'UsersController@destroy',
-        ]
+        ],
+        '/setor' => [
+            'GET' => 'SetoresController@index',
+            'POST' => 'SetoresController@store',
+        ],
+        '/setor/delete' => [
+            'POST' => 'SetoresController@destroy',
+        ],
 ];
