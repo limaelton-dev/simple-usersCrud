@@ -17,8 +17,8 @@
             <div class="row">
                 <form action="/setor" method="post">
                     <div class="col-md-6">
-                        <label class="form-label"for="name">Novo Setor</label>
-                        <input class="form-control" type="text" name="name">
+                        <label class="form-label" for="name">Novo Setor</label>
+                        <input class="form-control" type="text" name="name" required>
                     </div>
                     <input class="btn btn-success mt-3" type="submit">
                 </form>

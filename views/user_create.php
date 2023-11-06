@@ -28,23 +28,33 @@
                                 placeholder="Informe o email"/>
                         </div>
                         
-                        <div class="col-md-12">
-                            <?php if(isset($setores) && is_array($setores)) : ?>
-                                <?php foreach($setores as $setor) :?>
-                                    <div class="form-check form-switch">
-                                        <input type="checkbox" 
-                                                class="form-check-input"
-                                                role="switch"
-                                                name="setor[<?= $setor['id']; ?>]; ?>" 
-                                                id="setor_<?= $setor['id']; ?>">
-                                        <label class="form-check-label" 
-                                                for="setor_<?= $setor['id']; ?>">
-                                                    <?= $setor['name']; ?>
-                                        </label>
+                        <?php if (isset($setores) && is_array($setores)) : ?>
+                            <div class="row mt-4">
+                                <h2>Vincular Setor</h2>
+                                <?php $count = 0; ?>
+                                <?php foreach ($setores as $setor) : ?>
+                                    <div class="col-md-4">
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" 
+                                                    class="form-check-input" 
+                                                    role="switch" 
+                                                    name="setor[<?= $setor['id']; ?>]"
+                                                    id="setor<?= $setor['id']; ?>">
+                                            <label class="form-check-label" 
+                                                    for="setor_<?= $setor['id']; ?>">
+                                                <?= $setor['name']; ?>
+                                            </label>
+                                        </div>
                                     </div>
+                                    <?php
+                                        $count++;
+                                        if ($count % 6 === 0) {
+                                            echo '</div><div class="row">';
+                                        }
+                                    ?>
                                 <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="col-md-12 mt-3 d-flex justify-content-end">
                             <input class="btn btn-success" type="submit" value="Enviar" />

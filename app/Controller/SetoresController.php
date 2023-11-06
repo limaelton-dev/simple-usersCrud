@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\Controller;
 
-use app\Database\Connection;
 use app\Model\Setores;
 
 class SetoresController 
@@ -21,7 +20,7 @@ class SetoresController
         return $this->setoresModel->all();
     }
 
-    public function index(int|bool $id = false)
+    public function index()
     {
         $setoresList = $this->setoresModel->all();
 
@@ -43,12 +42,9 @@ class SetoresController
         $this->index();
     }
 
-    public function edit(int $id)
+    public function findName(int $id)
     {
-        //criar validação e flash message
-        $user = $this->setoresModel->find($id)[0];
-        require_once __DIR__ . '/../../views/user_edit.php';
-        return;
+        $this->setoresModel->findName($id);
     }
 
     public function destroy() 

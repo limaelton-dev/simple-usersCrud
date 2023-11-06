@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\Model;
 
 use PDO;
-use PDOException;
 
 class Users extends Model
 {
@@ -87,13 +86,14 @@ class Users extends Model
       /**
      * Busca um usuario por ID.
      *
-     * @param int $id é ID do user
+     * @param int|array $id é ID do user, ou array de ids ex: [1,4,5]
      *
      * @return bool|array Retorna array com as informaçoes ou false caso não encontre resultados.
      */
     public function find(int|array $ids): bool|array
     {
         $completeQuery = is_array($ids) ? 'users.id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')' : 'users.id = :id';
+
         $sql = '
             SELECT 
                 users.*, 
@@ -107,6 +107,7 @@ class Users extends Model
             GROUP BY 
                 users.id;
         ';
+
         $stmt = $this->pdo->prepare($sql);
         
         if (is_array($ids)) {

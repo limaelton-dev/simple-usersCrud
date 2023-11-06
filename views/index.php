@@ -59,7 +59,7 @@
                                     <div class="p-2">
                                         E-mail: <?= $user['email']; ?>
                                     </div>
-                                    <div class="p-2">
+                                    <!-- <div class="p-2">
                                         <ul>
                                             <?php if(is_array($user['setores'] && !empty($user['setores']))) : ?>
                                                 <?php foreach($user['setores'] as $setor) : ?>
@@ -67,7 +67,7 @@
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <form action="/user/edit" method="get">

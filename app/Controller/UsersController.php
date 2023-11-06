@@ -23,10 +23,22 @@ class UsersController
         return $this->usersModel->all();
     }
 
-    public function index(array|bool $setores = false)
+    public function index(array|bool|null $setores = false)
     {
         $setoresList = $this->setoresController->all();
-        $usersList = $setores === false ? $this->all() : $this->usersModel->find($setores);
+        $usersList = $setores === false ? $this->all() : ($setores === NULL ? [] : $this->usersModel->find($setores));
+        // var_dump($usersList);die;
+        if(!empty($usersList)) {
+            foreach($usersList as $key => $user) {
+                $userSetores = explode(',', $user['setores']);
+                foreach($userSetores as $setorId) {
+                    $setorId = intval($setorId);
+                    print_r("setor ID: ".$setorId);
+                    $usersList[$key]['setores_name'][] = $this->setoresController->findName($setorId);
+                }
+            }
+        }
+        var_dump($usersList);die;
 
         require_once __DIR__ . '/../../views/index.php';
         return;
@@ -78,15 +90,15 @@ class UsersController
     public function findWithFilter()
     {
         $setores = isset($_POST['setores']) && is_array($_POST['setores']) ? $_POST['setores'] : [];
-    
-        if (in_array(0, $setores)) {
+
+        if (in_array(0, $setores) || empty($setores)) {
             $this->index();
             return;
         }
     
         $users = $this->usersModel->findUsersSetores($setores);
     
-        $this->index(!empty($users) ? $users : null);
+        $this->index(!empty($users) ? $users : NULL);
     }
 
     public function destroy() 

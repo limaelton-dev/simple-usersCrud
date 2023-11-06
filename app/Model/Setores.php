@@ -9,7 +9,7 @@ use PDO;
 class Setores extends Model
 {
     /**
-     * Cria um usuário na base
+     * Cria um setor na base
      * 
      * @param array $fields Um array associativo contendo os campos e seus valores.
      *                     Exemplo: ['name' => 'Novo Setor']
@@ -47,30 +47,7 @@ class Setores extends Model
     }
 
     /**
-     * Atualiza os campos do usuário na base.
-     *
-     * @param array $fields Um array associativo contendo os campos a serem atualizados.
-     *                     Exemplo: ['name' => 'Setor atualizado']
-     *
-     * @return int|bool Retorna numero de linhas afetadas se a atualização for bem-sucedida, false caso contrário.
-     */
-    public function update(int $id, array $fields): int|bool
-    {
-        $sql = 'UPDATE setores SET name = :name WHERE id = :id';
-        $stmt = $this->pdo->prepare($sql);
-        
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $fields['name'], PDO::PARAM_STR);
-
-        if($stmt->execute()) {
-            return $stmt->rowCount();
-        }
-
-        return false;
-    }
-
-    /**
-     * Busca todos os usuários.
+     * Busca todos os setores.
      *
      * @return array Retorna um array com todos os setores
      */
@@ -84,21 +61,21 @@ class Setores extends Model
     }
 
       /**
-     * Busca um usuario por ID.
+     * Busca um setor por ID.
      *
      * @param int $id é ID do setor
      *
      * @return bool|array Retorna array com as informaçoes ou false caso não encontre resultados.
      */
-    public function find(int $id): bool|array
+    public function findName(int $id): bool|array
     {
-        $sql = 'SELECT * FROM setores WHERE id = :id';
+        $sql = 'SELECT name FROM setores WHERE id = :id';
         $stmt = $this->pdo->prepare($sql);
 
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }
 }
 
