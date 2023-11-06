@@ -78,9 +78,12 @@ class Users extends Model
      */
     public function all(): array
     {
-        $usersList = $this->pdo->query('SELECT * FROM users;')->fetchAll();
-
-        return $usersList;
+        $stmt = $this->pdo->prepare('
+        SELECT id FROM users
+    ');
+    
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
       /**

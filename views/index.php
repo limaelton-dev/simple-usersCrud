@@ -51,23 +51,26 @@
                             <li class="list-group-item">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <div class="p-2">
-                                        ID: <?= $user['id']; ?>
+                                        <strong>ID:</strong> <?= $user['id']; ?>
                                     </div>
                                     <div class="p-2">
-                                        User: <?= $user['name']; ?>
+                                        <strong>User:</strong> <?= $user['name']; ?>
                                     </div>
                                     <div class="p-2">
-                                        E-mail: <?= $user['email']; ?>
+                                        <strong>E-mail:</strong> <?= $user['email']; ?>
                                     </div>
-                                    <!-- <div class="p-2">
+                                    <div class="p-2">
                                         <ul>
-                                            <?php if(is_array($user['setores'] && !empty($user['setores']))) : ?>
-                                                <?php foreach($user['setores'] as $setor) : ?>
-                                                    <li>Setor(es): <?= $setor[''] ;?></li>
+                                            <!-- <?php var_dump(!empty($user['setores_name'])); ?> -->
+                                            <?php if(is_array($user['setores_name']) && (!empty($user['setores_name']))) : ?>
+                                            
+
+                                                <?php foreach($user['setores_name'] as $setor) : ?>
+                                                    <li><strong>Setor: </strong><?= $setor ;?></li>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </ul>
-                                    </div> -->
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <form action="/user/edit" method="get">

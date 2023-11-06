@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace app\Controller;
 
 use app\Controller\SetoresController;
+use app\Model\Setores;
 use app\Model\Users;
 
 class UsersController 
 {
     private Users $usersModel;
+    private Setores $setoresModel;
     private SetoresController $setoresController;
 
     public function __construct()
     {
         $this->usersModel = new Users();
+        $this->setoresModel = new Setores();
         $this->setoresController = new SetoresController();
     }
     
@@ -23,23 +26,26 @@ class UsersController
         return $this->usersModel->all();
     }
 
-    public function index(array|bool|null $setores = false)
+    public function index(array|bool|null $users = false)
     {
         $setoresList = $this->setoresController->all();
-        $usersList = $setores === false ? $this->all() : ($setores === NULL ? [] : $this->usersModel->find($setores));
-        // var_dump($usersList);die;
+        $users = $users === FALSE || $users === NULL ? $this->all() : $users;
+        $usersList = $this->usersModel->find($users);
         if(!empty($usersList)) {
             foreach($usersList as $key => $user) {
-                $userSetores = explode(',', $user['setores']);
-                foreach($userSetores as $setorId) {
-                    $setorId = intval($setorId);
-                    print_r("setor ID: ".$setorId);
-                    $usersList[$key]['setores_name'][] = $this->setoresController->findName($setorId);
+                if(!empty($user['setores'])) {
+                    $userSetores = explode(',', $user['setores']);
+                    foreach($userSetores as $setorId) {
+                        $setorId = intval($setorId);
+                        $usersList[$key]['setores_name'][] = $this->setoresModel->findName($setorId);
+                        continue;
+                    }
+                } else {
+                    $usersList[$key]['setores_name'][] = 'Sem resultados';
                 }
             }
         }
-        var_dump($usersList);die;
-
+        // var_dump($usersList);die;
         require_once __DIR__ . '/../../views/index.php';
         return;
     }

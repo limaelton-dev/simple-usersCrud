@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\Model;
 
 use PDO;
+use PDOException;
 
 class Setores extends Model
 {
@@ -53,9 +54,7 @@ class Setores extends Model
      */
     public function all(): array
     {
-        $setores = $this->pdo
-            ->query('SELECT * FROM setores;')
-            ->fetchAll();
+        $setores = $this->pdo->query('SELECT * FROM setores;')->fetchAll();
 
         return $setores;
     }
@@ -67,15 +66,15 @@ class Setores extends Model
      *
      * @return bool|array Retorna array com as informaçoes ou false caso não encontre resultados.
      */
-    public function findName(int $id): bool|array
+    public function findName(int $id): array|string
     {
-        $sql = 'SELECT name FROM setores WHERE id = :id';
+        $sql = 'SELECT name FROM setores WHERE id = :id;';
         $stmt = $this->pdo->prepare($sql);
 
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 }
 
