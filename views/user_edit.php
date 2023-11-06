@@ -61,6 +61,7 @@
                         <?php endif; ?>
                         
                         <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                        <?php echo getToken(); ?>
                         
                         <div class="col-md-12 mt-3 d-flex justify-content-end">
                             <input class="btn btn-success" type="submit" value="Enviar" />

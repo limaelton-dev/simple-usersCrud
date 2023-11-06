@@ -21,7 +21,7 @@
                             <form action="/filtrar" method="post">
                                 <div class="row align-items-end">
                                     <div class="col-md-8">
-                                        <label class="form-label" class="form">Setor</label>
+                                        <label class="form-label" class="form"><strong>Filtrar por setor</strong></label>
                                         <select class="form-select" name="setores[]" multiple aria-label="Multiple select example">
                                             <option value="0">Todos</option>
                                             <?php foreach($setoresList as $setor): ?>
@@ -80,6 +80,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <form action="/user/delete" method="post">
+                                                <?php echo getToken(); ?>
                                                 <input name="id" type="hidden" value="<?= $user['id']; ?>">
                                                 <input class="btn btn-danger" type="submit" value="Excluir">
                                             </form>

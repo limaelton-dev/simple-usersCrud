@@ -7,6 +7,7 @@ namespace app\Controller;
 use app\Controller\SetoresController;
 use app\Model\Setores;
 use app\Model\Users;
+use app\Support\Csrf;
 
 class UsersController 
 {
@@ -45,7 +46,7 @@ class UsersController
                 }
             }
         }
-        // var_dump($usersList);die;
+        
         require_once __DIR__ . '/../../views/index.php';
         return;
     }
@@ -60,6 +61,7 @@ class UsersController
 
     public function store()
     {
+        Csrf::validateToken();
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $fields['name'] = filter_input(INPUT_POST, 'name');
         $fields['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);

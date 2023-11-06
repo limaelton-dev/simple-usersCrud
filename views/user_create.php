@@ -56,6 +56,8 @@
                             </div>
                         <?php endif; ?>
 
+                        <?php echo getToken(); ?>
+
                         <div class="col-md-12 mt-3 d-flex justify-content-end">
                             <input class="btn btn-success" type="submit" value="Enviar" />
                         </div>
