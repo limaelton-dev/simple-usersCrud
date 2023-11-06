@@ -43,7 +43,8 @@ Este é um projeto de um aplicativo CRUD (Create, Read, Update, Delete) de usuá
 
 ## Commits
 
-    [É possível verificar meu histórico de commits no repositório publico em meu github acessando:](https://github.com/limaelton-dev/simple-usersCrud)
+    [É possível verificar meu histórico de commits no repositório publico em meu github acessando:]
+    (https://github.com/limaelton-dev/simple-usersCrud)
 
 
    

@@ -31,18 +31,26 @@ class UsersController
     {
         $setoresList = $this->setoresController->all();
         $users = $users === FALSE || $users === NULL ? $this->all() : $users;
-        $usersList = $this->usersModel->find($users);
-        if(!empty($usersList)) {
-            foreach($usersList as $key => $user) {
-                if(!empty($user['setores'])) {
-                    $userSetores = explode(',', $user['setores']);
-                    foreach($userSetores as $setorId) {
-                        $setorId = intval($setorId);
-                        $usersList[$key]['setores_name'][] = $this->setoresModel->findName($setorId);
-                        continue;
+        if(!empty($users)){
+
+            $usersList = $this->usersModel->find($users);
+
+            if(!empty($usersList)) {
+
+                foreach($usersList as $key => $user) {
+
+                    if(!empty($user['setores'])) {
+
+                        $userSetores = explode(',', $user['setores']);
+                        foreach($userSetores as $setorId) {
+                            
+                            $setorId = intval($setorId);
+                            $usersList[$key]['setores_name'][] = $this->setoresModel->findName($setorId);
+                            continue;
+                        }
+                    } else {
+                        $usersList[$key]['setores_name'][] = 'Sem resultados';
                     }
-                } else {
-                    $usersList[$key]['setores_name'][] = 'Sem resultados';
                 }
             }
         }
