@@ -2,8 +2,6 @@
 
 Este é um projeto de um aplicativo CRUD (Create, Read, Update, Delete) de usuários com setores, desenvolvido em PHP, utilizando o PDO para interagir com um banco de dados MySQL. O projeto é construído com o padrão de arquitetura MVC (Model-View-Controller).
 
-**Como solicitado, me esforcei muito, desejo entrar para a equipe Coletek e poder mostrar todo meu potencial.**
-
 ## Requisitos
 
 - PHP 8.2.9
